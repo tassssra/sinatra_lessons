@@ -1,0 +1,15 @@
+body {
+    font-size: 16px;
+    font-family: Verdana, sans-serif;
+}
+
+.container {
+    width: 400px;
+    margin: 20px auto;
+}
+
+h1 {
+    font-size: 18px;
+    border-bottom: 1px solid #ddd; /* border-bottomをつけるとそれっぽくなる */
+    padding-bottom: 10px;
+}

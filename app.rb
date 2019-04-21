@@ -2,7 +2,8 @@ require 'sinatra'
 require 'sinatra/reloader' # この記述によってサーバを再起動せずに変更を適用できる
 
 get '/' do
-  "hello world again"
+  @title = "My Site"
+  erb :index
 end
 
 # :〇〇, params[:〇〇]でURLで指定した値を表示できる
