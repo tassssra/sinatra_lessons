@@ -1,9 +1,29 @@
 require 'sinatra'
 require 'sinatra/reloader' # この記述によってサーバを再起動せずに変更を適用できる
+require 'active_record' # ActiveRecordを使うために必要
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true # 空のコメントができないようにcommentクラスにバリデーションを設定
+end
 
 get '/' do
-  @title = "My Site"
+  @title = "My BBS"
+  @comments = Comment.all
   erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/') #rootに転送
+end
+
+post '/destroy' do
+  Comment.find(params[:id]).destroy
 end
 
 # :〇〇, params[:〇〇]でURLで指定した値を表示できる
