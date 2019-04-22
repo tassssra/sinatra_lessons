@@ -1,6 +1,10 @@
 require 'sinatra'
 require 'sinatra/reloader' # この記述によってサーバを再起動せずに変更を適用できる
 require 'active_record' # ActiveRecordを使うために必要
+require 'rack/csrf' # rack_csrfを使うために必要。csrf対策
+
+use Rack::Session::Cookie, secret: "thisissomethingsecret"
+use Rack::Csrf, raise: true
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',

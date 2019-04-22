@@ -1,13 +1,14 @@
   <h1>My BBS</h1>
   <ul>
     <% @comments.each do |comment| %>
-      <li data-id="<%= comment.id %>">
+      <li data-id="<%= comment.id %>" data-token="<%= Rack::Csrf.csrf_token(env) %>">
         <%= Rack::Utils.escape_html(comment.body) %> <!-- フォームからの攻撃をエスケープする -->
         <span class="delete">[x]</span> <!-- styles.cssで.deleteにスタイルつけた -->
       </li>
     <% end %>
   </ul>
   <form action="/create" method="post"> <!-- /createに飛ばす -->
+    <%= Rack::Csrf.csrf_tag(env) %>
     <input type="text" name="body">
     <input type="submit" value="Add comment">
   </form>
